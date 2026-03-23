@@ -1,43 +1,54 @@
 /**
  * HE02_SymphonyScene.tsx — The Symphony Team
+ * 
+ * 5 lines appear sequentially. Lines 1-3 set context; lines 4-5 pivot.
+ * Lines 1-3 dim to 70% opacity once the pivot (line 4) appears.
+ * 
+ * Uses: FadeIn (from components)
  */
 
 import React from "react";
-import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
+import { useCurrentFrame, useVideoConfig, interpolate, spring, AbsoluteFill } from "remotion";
 import { springConf } from "../animations";
 
 const BG = "#0a0a0f";
-const TEXT = "#f0f0f0";
 const DIM = "rgba(240,240,240,0.4)";
 
 const lines = [
-  { text: "OpenAI's Symphony team.", delay: 0 },
-  { text: "Three engineers.", delay: 45 },
-  { text: "Everything — every single line — written by Codex.", delay: 90 },
-  { text: "The real innovation wasn't Codex.", delay: 200 },
-  { text: "It was what they built around it.", delay: 310 },
+  { text: "OpenAI's Symphony team.", size: 38, weight: 600, pivotDim: true },
+  { text: "Three engineers.", size: 38, weight: 600, pivotDim: true },
+  { text: "Everything — every single line — written by Codex.", size: 38, weight: 600, pivotDim: true },
+  { text: "The real innovation wasn't Codex.", size: 42, weight: 800, pivotDim: false },
+  { text: "It was what they built around it.", size: 42, weight: 800, pivotDim: false },
 ];
+const delays = [20, 95, 155, 270, 360];
+const pivotFrame = delays[3];
 
-const SeqLine: React.FC<{ text: string; triggerFrame: number; dim?: boolean }> = ({
-  text,
-  triggerFrame,
-  dim = false,
-}) => {
+const SeqLine: React.FC<{
+  text: string;
+  size: number;
+  weight: number;
+  triggerFrame: number;
+  pivotDim?: boolean;
+}> = ({ text, size, weight, triggerFrame, pivotDim = false }) => {
   const { fps } = useVideoConfig();
   const frame = useCurrentFrame();
   const t = Math.max(0, frame - triggerFrame);
   const entry = spring({ frame: t, fps, config: springConf });
+  const dimmedOpacity = pivotDim && frame >= pivotFrame
+    ? interpolate(frame, [pivotFrame, pivotFrame + 20], [0.7, 0.5], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+    : 1;
 
   return (
     <div
       style={{
-        fontSize: 44,
-        fontWeight: 700,
+        fontSize: size,
+        fontWeight: weight,
         fontFamily: "Arial, sans-serif",
-        color: dim ? DIM : TEXT,
+        color: DIM,
         letterSpacing: "-0.02em",
         lineHeight: 1.3,
-        opacity: entry,
+        opacity: entry * dimmedOpacity,
         transform: `translateY(${(1 - entry) * 20}px)`,
       }}
     >
@@ -52,13 +63,19 @@ export const HE02_SymphonyScene: React.FC = () => {
       style={{
         backgroundColor: BG,
         justifyContent: "center",
-        alignItems: "flex-start",
-        padding: "0 120px",
+        alignItems: "center",  // centered per storyboard
         gap: 20,
       }}
     >
       {lines.map((l, i) => (
-        <SeqLine key={i} text={l.text} triggerFrame={l.delay} />
+        <SeqLine
+          key={i}
+          text={l.text}
+          size={l.size}
+          weight={l.weight}
+          triggerFrame={delays[i]}
+          pivotDim={l.pivotDim}
+        />
       ))}
     </AbsoluteFill>
   );

@@ -1,48 +1,39 @@
 /**
  * HE01_HookScene.tsx — The Hook
- *
- * 4 lines animate in sequentially:
- * "3 engineers" / "5 months" / "1M lines of code" / "0 lines typed by a human"
- * The last line fades in RED — the shocking reveal.
- *
- * Duration: 330 frames (11s @ 30fps)
+ * 
+ * 4 lines animate in sequentially with count-up on numbers:
+ * "3 engineers" / "5 months" / "1,000,000 lines of code" / "0 lines typed by a human"
+ * The "0" appears in RED — the shocking reveal.
+ * 
+ * Uses: CountUp, FadeIn (from components), springConf (from animations.ts)
  */
 
 import React from "react";
-import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
-import { springConf } from "../animations";
+import { AbsoluteFill } from "remotion";
+import { FadeIn } from "../components/animations/FadeIn";
+import { CountUp } from "../components/animations/CountUp";
+import { ScaleIn } from "../components/animations/ScaleIn";
 
 const BG = "#0a0a0f";
-const TEXT = "#f0f0f0";
 const RED = "#ff6b6b";
+const DIM = "rgba(240,240,240,0.5)";
 
-const AnimatedLine: React.FC<{
-  text: string;
+const StatRow: React.FC<{
+  count: number;
+  label: string;
   triggerFrame: number;
+  countDuration?: number;
   color?: string;
-}> = ({ text, triggerFrame, color = TEXT }) => {
-  const { fps } = useVideoConfig();
-  const frame = useCurrentFrame();
-  const t = Math.max(0, frame - triggerFrame);
-  const entry = spring({ frame: t, fps, config: springConf });
-
-  return (
-    <div
-      style={{
-        fontSize: 72,
-        fontWeight: 800,
-        fontFamily: "Arial, sans-serif",
-        color,
-        letterSpacing: "-0.03em",
-        lineHeight: 1.2,
-        opacity: entry,
-        transform: `scale(${entry})`,
-      }}
-    >
-      {text}
+}> = ({ count, label, triggerFrame, countDuration = 20, color = "#f0f0f0" }) => (
+  <FadeIn triggerFrame={triggerFrame}>
+    <div style={{ display: "flex", alignItems: "baseline", gap: "0.15em", justifyContent: "center" }}>
+      <CountUp target={count} startFrame={triggerFrame} duration={countDuration} color={color} />
+      <span style={{ fontSize: 48, fontWeight: 600, fontFamily: "Arial, sans-serif", color: DIM, letterSpacing: "-0.02em" }}>
+        {label}
+      </span>
     </div>
-  );
-};
+  </FadeIn>
+);
 
 export const HE01_HookScene: React.FC = () => {
   return (
@@ -54,10 +45,28 @@ export const HE01_HookScene: React.FC = () => {
         gap: 24,
       }}
     >
-      <AnimatedLine text="3 engineers" triggerFrame={0} />
-      <AnimatedLine text="5 months" triggerFrame={40} />
-      <AnimatedLine text="1M lines of code" triggerFrame={80} />
-      <AnimatedLine text="0 lines typed by a human" triggerFrame={130} color={RED} />
+      {/* Line 1: 3 engineers */}
+      <StatRow count={3} label="engineers" triggerFrame={15} />
+
+      {/* Line 2: 5 months */}
+      <StatRow count={5} label="months" triggerFrame={60} />
+
+      {/* Line 3: 1,000,000 lines of code */}
+      <StatRow count={1000000} label="lines of code" triggerFrame={105} countDuration={25} />
+
+      {/* Line 4: 0 — RED, ScaleIn, no count */}
+      <FadeIn triggerFrame={165}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: "0.15em", justifyContent: "center" }}>
+          <ScaleIn triggerFrame={165}>
+            <span style={{ fontSize: 72, fontWeight: 800, fontFamily: "Arial, sans-serif", color: RED, letterSpacing: "-0.03em" }}>
+              0
+            </span>
+          </ScaleIn>
+          <span style={{ fontSize: 48, fontWeight: 600, fontFamily: "Arial, sans-serif", color: DIM, letterSpacing: "-0.02em" }}>
+            lines typed by a human
+          </span>
+        </div>
+      </FadeIn>
     </AbsoluteFill>
   );
 };
