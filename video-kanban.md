@@ -1,155 +1,119 @@
 # Video Pipeline Kanban — "What Is Harness Engineering"
 
-> Owned by: **Hastur** 👑 | Stakeholder: **winoooops**
-> Last updated: 2026-03-23
+> Last updated: 2026-03-23 14:28 HKT
+> Owner: **Hastur** 👑 (when spawned) | Stakeholder: **winoooops**
+> Repo: `github.com/winoooops/video-pipeline`
+> Communication: @mention blocker owner in this channel
 
 ---
 
-## Phases & Status Legend
+## Pipeline Overview
 
-| Status | Meaning |
-|--------|---------|
-| 🔴 Not Started | Not yet begun |
-| 🟡 In Progress | Being worked on |
-| 🟢 Done | Complete, awaiting review |
-| ✅ Approved | Reviewed and accepted |
-| 🚫 Blocked | Waiting on dependency or help |
+```
+[Concept] → [Script] → [Storyboard] → [Assets] → [Animation] → [Audio] → [Composite] → [QA Review] → [Render] → [Publish]
+```
 
----
-
-## 🔬 Phase 1 — Research
-
-*Owner: Dagon 🌊 + Cthulhu 🦑 | Status: 🟢 Done*
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Platform research (YouTube/Bilibili) | Cthulhu 🦑 | ✅ Done | In `video-toolchain.md` |
-| Toolchain research (TTS, Remotion, ffmpeg) | Dagon 🌊 | ✅ Done | 754-line doc, all sections covered |
-| Remotion audit (current packages + unused features) | Ithaqua 🌬️ | 🟢 Done | `video-toolchain.md` — full audit written, 21 scenes, 7 unused packages identified, PoC demo scoped |
-| Research doc finalization | Dagon 🌊 | ✅ Done | Sub-agent contributed depth, doc complete |
+**winoooops** = stakeholder at `QA Review` (approve/reject) and `Publish` (final go/no-go)
+**Hastur** = board owner once spawned
 
 ---
 
-## 🎬 Phase 2 — Pre-Production
+## Current Video: Harness Engineering
 
-*Owner: winoooops (concept) + Nyarlathotep (script, Phase 5) | Status: 🔴 Not Started*
+> Topic: OpenAI Symphony team's Harness Engineering approach — three engineers, five months, a million lines of code via Codex
+> Article: `F:\Personal\obsidian-vault\winoooops&Claw\articles\What Is Harness Engineering.md`
 
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Concept brief from winoooops | winoooops | 🔴 Not Started | What is the video trying to convey? |
-| Scene breakdown / storyboard | Nyarlathotep ✍️ | 🔴 Not Started | Phase 5 spawn |
-| Asset list (clips, graphics, audio needed) | Ithaqua 🌬️ | 🔴 Not Started | |
-| TTS voice selection (MiniMax + OpenAI voices) | Dagon 🌊 | 🔴 Not Started | After Phase 3 packages installed |
-
----
-
-## 🛠️ Phase 3 — Package Setup
-
-*Owner: Ithaqua 🌬️ | Status: 🟡 In Progress*
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Install `@remotion/media` (video embedding) | Ithaqua 🌬️ | 🟢 Done | Installed v4.0.438 — exports `Video`, `experimental_Video`, `Audio` |
-| Install `@remotion/transitions` (scene transitions) | Ithaqua 🌬️ | 🟢 Done | Installed v4.0.438 — exports `TransitionSeries`, `springTiming`, `linearTiming` |
-| Install `fluent-ffmpeg` (clip pre-processing) | Ithaqua 🌬️ | 🔴 Not Started | CLI ffmpeg available — defer until Phase 6 if no clip prep needed |
-| Install `@remotion/three` (3D, for title cards) | Ithaqua 🌬️ | 🔴 Not Started | Nice-to-have — defer to Phase 6 unless script calls for 3D |
-| Configure TTS pipeline (MiniMax + OpenAI) | Dagon 🌊 | 🟢 Done | OpenAI TTS key confirmed (HTTP 200), provider added to config |
-| Verify all packages build without errors | Ithaqua 🌬️ | 🟡 In Progress | Scene22 demo ready — sample clip now available at `src/assets/videos/sample-clip.mp4` |
-| Video embedding PoC scene | Ithaqua 🌬️ | 🟢 Done | `src/scenes/Scene22_VideoEmbedDemo.tsx` — placeholder version ready, full version requires clip |
+| Stage | Owner | Status | Notes |
+|-------|-------|--------|-------|
+| Concept | winoooops | ✅ Done | Harness Engineering — OpenAI Symphony case study |
+| Research | Cthulhu 🦑 + Dagon 🌊 | ✅ Done | Platform + toolchain docs pushed to GitHub |
+| Script | Nyarlathotep ✍️ | ⏳ Pending | Waiting for Phase 2 (Hastur spawn) |
+| Storyboard | Ithaqua 🌬️ | ⏳ Pending | — |
+| Assets | Ithaqua 🌬️ | 🔄 In Progress | Sample clip ready: `demo-clip.mp4` (1920×1080 H.264, 5.7s, 2.8MB) |
+| Animation | Ithaqua 🌬️ | 🔄 In Progress | `Scene22_VideoEmbedDemo.tsx` — real clip + animated overlay demo ready |
+| Audio | Dagon 🌊 | ⏳ Pending | OpenAI TTS key received, auth test in progress |
+| Composite | Ithaqua 🌬️ | ⏳ Pending | — |
+| QA Review | Hastur 👑 | 🔄 In Progress | Subagent spawned, bootstrapping |
+| Render | Ithaqua 🌬️ | ⏳ Pending | — |
+| Publish | Cthulhu 🦑 | ⏳ Pending | — |
 
 ---
 
-## 🧙 Phase 4 — QA Agent Spawn (Hastur)
+## Agent Standup Log
 
-*Owner: Ithaqua 🌬️ (builds) + Dagon 🌊 (reviews) | Status: 🟡 In Progress*
+### 2026-03-23 — Sprint Day 1
 
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Write Hastur SOUL.md | Ithaqua 🌬️ | 🟢 Done | ~/agents/hastur/SOUL.md — King in Yellow persona, verdict-based reporting |
-| Write Hastur AGENTS.md (role + checklist) | Ithaqua 🌬️ | 🟢 Done | ~/agents/hastur/AGENTS.md — full QA checklist (audio sync, visuals, compositing, subs, technical) |
-| Write Hastur HEARTBEAT.md | Ithaqua 🌬️ | 🟢 Done | ~/agents/hastur/HEARTBEAT.md — minimal, event-driven triggers |
-| Dagon reviews Hastur spec | Dagon 🌊 | ✅ Done | APPROVED — spawn path file created at ~/agents/shared/project-paths.md |
-| Hastur goes live | Ithaqua 🌬️ | 🟡 In Progress | Subagent spawned — bootstrapping now |
-| Kanban ownership transferred to Hastur | Hastur 👑 | 🔴 Not Started | After spawn confirmed |
-| GitHub video-pipeline repo | Ithaqua 🌬️ | 🟢 Done | `github.com/winoooops/video-pipeline` created — push kanban/documents when ready |
+| Agent | What done | Blockers | Next |
+|-------|-----------|----------|------|
+| Cthulhu 🦑 | Platform research (YouTube/Bilibili), pipeline doc, pushed to GitHub | — | Standby for Phase 2 |
+| Dagon 🌊 | Toolchain section (TTS, Remotion, ffmpeg), Kanban setup, OpenAI key received | — | TTS auth test → Phase 3 spec |
+| Ithaqua 🌬️ | Sample clip found, video embedding demo ready, GitHub repo created, Hastur subagent spawned | — | Wire demo into composition, review Hastur spec |
+| Hastur 👑 | Subagent spawned, bootstrapping | — | Phase 2: finalize spawn spec |
+| Nyarlathotep ✍️ | Not spawned | Waiting for Hastur + research doc | Phase 5 |
 
 ---
-
-## ✍️ Phase 5 — Script (Nyarlathotep)
-
-*Owner: Cthulhu 🦑 (spawns) + Nyarlathotep ✍️ (writes) | Status: 🔴 Not Started*
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Spawn Nyarlathotep | Cthulhu 🦑 | 🔴 Not Started | After Phase 1 doc is final |
-| Nyarlathotep reads video-toolchain.md | Nyarlathotep ✍️ | 🔴 Not Started | Must understand constraints |
-| Write first draft script | Nyarlathotep ✍️ | 🔴 Not Started | winoooops reviews/approves |
-| Scene breakdown + timing | Nyarlathotep ✍️ | 🔴 Not Started | Hands off to Ithaqua |
-
----
-
-## 🎨 Phase 6 — Animation / Production
-
-*Owner: Ithaqua 🌬️ | Status: 🔴 Not Started*
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Build Remotion composition structure | Ithaqua 🌬️ | 🔴 Not Started | Based on Nyarlathotep's breakdown |
-| Import video clips (`@remotion/media`) | Ithaqua 🌬️ | 🔴 Not Started | |
-| Build animated lower-thirds + overlays | Ithaqua 🌬️ | 🔴 Not Started | |
-| Add 3D title cards (`@remotion/three`) | Ithaqua 🌬️ | 🔴 Not Started | |
-| Scene transitions (`@remotion/transitions`) | Ithaqua 🌬️ | 🔴 Not Started | |
-| Composite audio tracks (TTS + music) | Dagon 🌊 | 🔴 Not Started | After TTS pipeline ready |
-| Render preview → post to Kanban | Ithaqua 🌬️ | 🔴 Not Started | |
-
----
-
-## 🔍 Phase 7 — QA Review
-
-*Owner: Hastur 👑 | Stakeholder: winoooops | Status: 🔴 Not Started*
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Hastur reviews rendered output | Hastur 👑 | 🔴 Not Started | |
-| Scene duration vs audio sync check | Hastur 👑 | 🔴 Not Started | |
-| Text overflow / legibility check | Hastur 👑 | 🔴 Not Started | |
-| Transition smoothness check | Hastur 👑 | 🔴 Not Started | |
-| QA report → winoooops | Hastur 👑 | 🔴 Not Started | Only if issues found |
-| winoooops approves → Publish | winoooops | 🔴 Not Started | |
-
----
-
-## 🚀 Phase 8 — Render & Publish
-
-*Owner: Cthulhu 🦑 | Status: 🔴 Not Started*
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| Final render (Remotion Studio or CLI) | Ithaqua 🌬️ | 🔴 Not Started | |
-| Thumbnail generation | Cthulhu 🦑 | 🔴 Not Started | |
-| YouTube upload + metadata + SEO | Cthulhu 🦑 | 🔴 Not Started | |
-| Bilibili upload (within 24h) | Cthulhu 🦑 | 🔴 Not Started | |
-| Twitter thread (same day) | Cthulhu 🦑 | 🔴 Not Started | |
-| Post in Discord #video-releases | Cthulhu 🦑 | 🔴 Not Started | |
-
----
-
-## GitHub Repository
-
-**Repo:** `github.com/winoooops/video-pipeline` (fresh, empty — created by Ithaqua)
-
-Push plan:
-1. First push: Kanban + toolchain doc (Phase 1 deliverables)
-2. Second push: Hastur agent configs + memory
-3. Ongoing: pipeline scripts, QA reports, render outputs
 
 ## Communication Protocol
 
-- **Blockers:** Post in this thread, tag the responsible agent
-- **Updates:** Update this Kanban + post brief in thread
-- **Escalation:** If blocked >1hr, tag winoooops directly
-- **Check-ins:** Every team member posts status here at least once per phase
+1. **Blocker rule:** If you hit a blocker, @mention the agent who can unblock you **in this channel**
+2. **Daily standup:** Each agent updates their row in "Agent Standup Log" when significant progress is made
+3. **Stage transition:** When an agent completes a stage, they update Status and notify the next stage owner
+4. **Escalation:** If a blocker cannot be resolved in 1hr, ping winoooops directly
+
+**Agent mentions:**
+- Cthulhu 🦑 → `@cthulhu`
+- Ithaqua 🌬️ → `@ithaqua`
+- Dagon 🌊 → `@dagon`
+- Hastur 👑 → `@hastur`
+- Nyarlathotep ✍️ → `@nyarlathotep`
+- winoooops → `@winoooops`
 
 ---
 
-*Last updated: 2026-03-23 13:50 GMT+8 — Ithaqua 🌬️*
+## Phase Progress
+
+### ✅ Phase 1 — Research (1 day sprint) — COMPLETE
+- [x] Platform research → `video-toolchain.md` ✅ (Cthulhu)
+- [x] Toolchain research → `video-toolchain.md` ✅ (Dagon)
+- [x] Remotion audit → `video-toolchain.md` ✅ (Ithaqua)
+- [x] GitHub repo created → `github.com/winoooops/video-pipeline` ✅
+- [x] Docs pushed to GitHub ✅
+- [x] OpenAI TTS key received ✅
+- [x] Sample clip ready (1K/2K/4K source files — winoooops will provide) ✅
+
+### 🔄 Phase 2 — QA Agent (Hastur) — IN PROGRESS
+- [ ] Subagent spawned ✅ (Ithaqua)
+- [ ] SOUL.md + AGENTS.md written ⏳
+- [ ] Review + approval ⏳ (Dagon)
+- [ ] Read access to Remotion project + toolchain doc configured ⏳
+
+### ⏳ Phase 3 — TTS/Audio Pipeline
+- [ ] OpenAI TTS auth test ⏳ (Dagon)
+- [ ] MiniMax vs OpenAI comparison finalized ⏳
+- [ ] Audio sync pipeline into Remotion ⏳
+
+### ⏳ Phase 4 — Kanban Board (Hastur ownership)
+
+### ⏳ Phase 5 — Script Agent (Nyarlathotep)
+- [ ] Spawn after Phase 2 complete
+
+---
+
+## OpenAI TTS API Key
+
+- **Status:** Received from winoooops, forwarded to Dagon
+- **Key:** `[STORED ELSEWHERE — DO NOT COMMIT]`
+- **Owner:** Dagon 🌊
+- **Purpose:** TTS pipeline comparison (MiniMax vs OpenAI)
+
+> ⚠️ **Never commit API keys to this repo.** Use environment variables or a credentials file outside the repo.
+
+---
+
+## Video Source Files (Assets)
+
+winoooops: Will provide 1K/2K/4K video clips when available. Current demo uses `demo-clip.mp4` (1920×1080 H.264, 5.7s, 2.8MB) as placeholder.
+
+---
+
+*Last updated: 2026-03-23 14:28 HKT*
