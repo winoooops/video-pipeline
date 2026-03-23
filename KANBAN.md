@@ -27,7 +27,7 @@
 |-------|-------|--------|-------|
 | Concept | winoooops | ✅ Done | Harness Engineering — OpenAI Symphony case study |
 | Research | Cthulhu 🦑 + Dagon 🌊 | ✅ Done | Platform + toolchain docs pushed to GitHub |
-| **>>> System Setup** | **Ithaqua 🌬️** | **🔄 NOW** | **`development.md` + `art-direction.md` — CURRENT PHASE** |
+| System Setup | Ithaqua 🌬️ | ✅ Done | `development.md` + `art-direction.md` written + pushed to repo |
 | TTS Pipeline Prep | Dagon 🌊 | 🔄 NOW | MiniMax + OpenAI TTS key test + comparison |
 | Script + Storyboard | Nyarlathotep ✍️ | ⏳ Waiting | Blocked on System Setup |
 | Asset Inventory | Ithaqua 🌬️ | ⏳ Waiting | Blocked on Storyboard |
