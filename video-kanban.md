@@ -1,6 +1,6 @@
 # Video Pipeline Kanban — "What Is Harness Engineering"
 
-> Last updated: 2026-03-23 19:11 HKT
+> Last updated: 2026-03-23 19:15 HKT
 > Owner: **Hastur** 👑 | Stakeholder: **winoooops**
 > Repo: `github.com/winoooops/video-pipeline`
 > Communication: @mention blocker owner in this channel
@@ -10,7 +10,7 @@
 ## Pipeline Overview
 
 ```
-[Concept] → [Script] → [Storyboard] → [Assets] → [Animation] → [Audio] → [Composite] → [QA Review] → [Render] → [Publish]
+[Concept] → [System Setup] → [Art Direction] → [Storyboard] → [Asset Inventory] → [Asset Generation] → [Motion Primitives] → [Component Assembly] → [Scene Execution] → [Polish] → [QA Review] → [Render] → [Publish]
 ```
 
 **winoooops** = stakeholder at `QA Review` (approve/reject) and `Publish` (final go/no-go)
@@ -39,18 +39,42 @@
 
 ---
 
-## Reference: 3-Level AI Video Creation Framework
+## Reference: Two 10x Video Pipeline Frameworks
 
-*From: "Claude Just Changed Content Creation Forever!" by Samin Yasar (YouTube)*
+### Framework A: Andy Lo — 9-Phase Remotion + Claude Code Workflow
+*From: "How I Created a Professional Motion Graphics Video With Claude Code + Remotion Skills (No Editing)" by Andy Lo (25:03, 24k views)*
 
-### Level 1 — Setup & First Video (0:00–5:16)
-Install Claude Desktop → Add Remotion skill → Create first AI video via prompting → Troubleshooting
+**Core insight:** "We went from an empty folder to a fully rendered professional video. No After Effects, no timeline, no key frames. We directed the result instead of manually building every piece."
 
-### Level 2 — Skill Stacking (8:00–12:03)
-Stack multiple skills → Build Claude.md "brain" for persistent context → Integrate ElevenLabs (voice), Wavespeed (video gen), Image Gen
+| Phase | Name | What It Does | Output |
+|-------|------|-------------|--------|
+| 1 | Development System | Technical foundation — rules + patterns Claude must follow | `development.md` |
+| 2 | Art Direction | Visual language, tone, constraints, motion fill rules | `art-direction.md` |
+| 3 | Storyboarding | Define scenes, flow, timing — as text, single source of truth | `storyboard.md` |
+| 4 | Asset Inventory | Define all assets + design specs before creating them | `asset-inventory.md` |
+| 5 | Asset Generation | Generate actual assets (batched by category) | `src/assets/` |
+| 6 | Motion Primitives | Define reusable motion building blocks per asset | `motion-primitives.md` |
+| 7 | Component Assembly | Glue everything — create necessary components, fill gaps | `src/components/` |
+| 8 | Component Refinement | Polish components, verify consistency | `src/scenes/` |
+| 9 | Scene Execution | Generate scenes one-by-one, review, assemble, polish, add voiceover (ElevenLabs) | Final `.mp4` |
 
-### Level 3 — Chaining Videos (13:57–15:16)
-Chain multiple generated videos → Stitch for long-form content
+**Key Andy Lo principles:**
+- "Separation of concerns" — don't design assets, decide where they go, and animate at the same time
+- Batch asset generation by category to reduce AI hallucinations
+- Scenes should be generated ONE BY ONE and reviewed before moving on
+- Phase 9 is "easiest" because all hard thinking already done in phases 1-6
+- After first render: "go back and raise issues, tell Claude exactly what to improve"
+- Voiceover + music added LAST (ElevenLabs SDK)
+- "Build facial systems, not just videos" — the workflow is the product
+
+### Framework B: Samin Yasar — 3-Level AI Video Creation
+*From: "Claude Just Changed Content Creation Forever!" by Samin Yasar*
+
+| Level | What | Our Pipeline Stage |
+|-------|------|-------------------|
+| L1: Setup | Install Claude → Add Remotion skill → first video | ✅ Done |
+| L2: Skill Stacking | Claude.md "brain" + ElevenLabs + Wavespeed + Image Gen | 🔄 We need this |
+| L3: Chaining | Stitch multiple AI videos into long-form | 🔄 We need this |
 
 ---
 
@@ -125,7 +149,7 @@ Each agent: **Trigger → Input → Exact Steps → Artifact → Exit Criteria**
 2. Read toolchain — know available packages, transitions, effects
 3. Build composition — `Root.tsx` with `<Sequence>` components per scene, audio wired per scene
 4. Build each scene `.tsx` — match visual/animation notes from script
-5. **Preview render first 5 scenes** — verify timing before full render
+5. **Preview render first 5 scenes** — verify timing before full render (Andy Lo's approach)
 6. Fix timing errors — adjust `<div>` durations, `from`, `to` props
 7. Full render — all scenes → `out/{project}.mp4`
 8. Verify output — `ffprobe` duration, resolution, codec check
@@ -154,7 +178,7 @@ Each agent: **Trigger → Input → Exact Steps → Artifact → Exit Criteria**
 
 ---
 
-### 📋 Storyboard (Ithaqua 🌬️) — Optional per-scene step between Script and Animation
+### 📋 Storyboard (Ithaqua 🌬️)
 
 **Trigger:** Script received
 **Input:** Script scene breakdown + visual notes
@@ -241,7 +265,7 @@ Each agent: **Trigger → Input → Exact Steps → Artifact → Exit Criteria**
 
 | Agent | What done | Blockers | Next |
 |-------|-----------|----------|------|
-| Cthulhu 🦑 | Platform research, Kanban + task templates updated from video research | — | Awaiting Hastur QA verdict → Publish |
+| Cthulhu 🦑 | Platform research, Kanban + task templates updated from Andy Lo + Samin Yasar videos | — | Awaiting Hastur QA verdict → Publish |
 | Dagon 🌊 | TTS pipeline, toolchain doc, Kanban setup | — | Standby |
 | Ithaqua 🌬️ | 12 scenes built, 01-05 rendered, 06-12 code done | — | Full composite + render |
 | Hastur 👑 | Subagent spawned, bootstrapping | — | QA review of preview |
@@ -258,4 +282,4 @@ Each agent: **Trigger → Input → Exact Steps → Artifact → Exit Criteria**
 
 ---
 
-*Last updated: 2026-03-23 19:11 HKT*
+*Last updated: 2026-03-23 19:15 HKT*
