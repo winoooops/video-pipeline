@@ -867,3 +867,25 @@ These are either redundant, overkill, or actively problematic for our pipeline:
 ---
 
 *Document version 1.0 — Last updated: 2026-03-23*
+
+---
+
+## Appendix: Harness Engineering — Video Topic Brief
+
+**Core thesis:** In the agent-first world, scaffolding — linters, architecture, docs, review loops, observability — matters more than the code itself.
+
+**The story:** OpenAI Symphony team: 3 engineers, 5 months, 1M lines of code. Every line written by Codex. The real innovation was what they built *around* Codex.
+
+**Key concepts:**
+- The Gap Is Always Yours — bad agent output = gap in what we provided, not model capability
+- Lint > Documentation — encode constraints where they can't be ignored, not notes that get ignored
+- Architecture as Progressive Disclosure — directional boundaries enforced by build, not aspirational docs
+- Taste Compounds — each engineer's taste encoded into shared infrastructure makes all agents better
+- Everything is agent-generated: CI, tools, docs, eval harnesses, review comments, dashboards
+- Goal = Autonomy: agents that work longer, more reliably, less hand-holding
+
+**Audience:** Developers using AI coding tools (Claude Code, Copilot, Codex). Technical. Struggles with unreliable agent output.
+
+**Viewer takeaway:** The bottleneck isn't the AI — it's your scaffolding. Fix your lint rules, docs, architecture. The fix is yours, not the model's.
+
+**Emotional arc:** Hook ("3 engineers, 1M lines, zero typing") → validate the struggle → reframe → empowering close.
