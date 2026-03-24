@@ -1,5 +1,8 @@
 /**
  * HE10_SurfaceAreaScene.tsx — The Full Surface Area
+ * 
+ * Radial layout centered on canvas with 7 satellite nodes.
+ * S22 Dark Elegant: glow nodes, CYAN accent, centered.
  */
 
 import React from "react";
@@ -7,91 +10,133 @@ import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion"
 import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const TEXT = "#f0f0f0";
+const TEXT = "#e8eaed";
 const CYAN = "#67e8f9";
+const NODE_BG = "#141422";
 
 const nodes = [
-  { label: "CI config", angle: -90 },
-  { label: "Internal dev tools", angle: -39 },
-  { label: "Documentation", angle: 13 },
-  { label: "Eval harnesses", angle: 64 },
-  { label: "Review comments", angle: 115 },
-  { label: "Scripts that manage the repo", angle: 166 },
-  { label: "Production dashboard definitions", angle: 217 },
+  "CI config",
+  "Internal dev tools",
+  "Documentation",
+  "Eval harnesses",
+  "Review comments",
+  "Repo scripts",
+  "Dashboard definitions",
 ];
 
-const RADIUS = 220;
-const CENTER_X = 480;
-const CENTER_Y = 300;
+// Center of 1920×1080 canvas
+const CX = 960;
+const CY = 440; // slightly above center to leave room for footer
+const RADIUS = 300;
 
-const NodeItem: React.FC<{ label: string; angleDeg: number; index: number }> = ({ label, angleDeg, index }) => {
+const SatelliteNode: React.FC<{
+  label: string;
+  index: number;
+  total: number;
+}> = ({ label, index, total }) => {
   const { fps } = useVideoConfig();
   const frame = useCurrentFrame();
-  const t = Math.max(0, frame - 30 - index * 20);
+  const t = Math.max(0, frame - 40 - index * 18);
   const entry = spring({ frame: t, fps, config: springConf });
 
-  const angleRad = ((angleDeg - 90) * Math.PI) / 180;
-  const x = CENTER_X + RADIUS * Math.cos(angleRad) - 90;
-  const y = CENTER_Y + RADIUS * Math.sin(angleRad) - 20;
+  // Distribute evenly around the circle
+  const angleRad = ((index / total) * 2 * Math.PI) - Math.PI / 2;
+  const x = CX + RADIUS * Math.cos(angleRad);
+  const y = CY + RADIUS * Math.sin(angleRad);
 
   return (
-    <div style={{
-      position: "absolute", left: x, top: y,
-      opacity: entry, transform: `scale(${entry})`,
-      backgroundColor: "rgba(103,232,249,0.1)", border: `1px solid rgba(103,232,249,0.3)`,
-      borderRadius: 8, padding: "8px 14px",
-    }}>
-      <span style={{ fontSize: 16, fontFamily: "Arial, sans-serif", color: CYAN, whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>
-        {label}
-      </span>
-    </div>
-  );
-};
+    <>
+      {/* Connecting line from center */}
+      <svg style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "visible" }}>
+        <line
+          x1={CX} y1={CY} x2={x} y2={y}
+          stroke={CYAN}
+          strokeWidth={1.5}
+          strokeDasharray="6,4"
+          opacity={entry * 0.25}
+        />
+      </svg>
 
-const CenterLabel: React.FC<{ triggerFrame: number }> = ({ triggerFrame }) => {
-  const { fps } = useVideoConfig();
-  const frame = useCurrentFrame();
-  const t = Math.max(0, frame - triggerFrame);
-  const entry = spring({ frame: t, fps, config: springConf });
-
-  return (
-    <div style={{
-      position: "absolute", left: CENTER_X - 80, top: CENTER_Y - 24,
-      opacity: entry, transform: `scale(${entry})`,
-      backgroundColor: CYAN, borderRadius: 10, padding: "10px 22px",
-    }}>
-      <span style={{ fontSize: 18, fontWeight: 800, fontFamily: "Arial, sans-serif", color: "#0a0a12", letterSpacing: "-0.02em" }}>
-        Agent-Generated
-      </span>
-    </div>
-  );
-};
-
-const FooterText: React.FC<{ triggerFrame: number }> = ({ triggerFrame }) => {
-  const { fps } = useVideoConfig();
-  const frame = useCurrentFrame();
-  const t = Math.max(0, frame - triggerFrame);
-  const entry = spring({ frame: t, fps, config: springConf });
-
-  return (
-    <div style={{
-      position: "absolute", bottom: 60, left: 0, right: 0, textAlign: "center",
-      opacity: entry, transform: `translateY(${(1 - entry) * 15}px)`,
-    }}>
-      <span style={{ fontSize: 24, fontFamily: "Arial, sans-serif", color: TEXT, letterSpacing: "-0.02em" }}>
-        The full surface area.{" "}
-        <span style={{ color: CYAN }}>All of it needs to be legible, consistent, worth copying.</span>
-      </span>
-    </div>
+      {/* Node */}
+      <div style={{
+        position: "absolute",
+        left: x - 90, top: y - 22,
+        width: 180,
+        textAlign: "center",
+        opacity: entry, transform: `scale(${entry})`,
+      }}>
+        <div style={{
+          display: "inline-block",
+          backgroundColor: NODE_BG,
+          border: "1px solid rgba(103,232,249,0.25)",
+          borderRadius: 10,
+          padding: "10px 18px",
+          boxShadow: "0 0 12px rgba(103,232,249,0.06)",
+        }}>
+          <span style={{
+            fontSize: 20, fontFamily: "Arial, sans-serif", color: CYAN,
+            whiteSpace: "nowrap", letterSpacing: "-0.01em", fontWeight: 600,
+          }}>
+            {label}
+          </span>
+        </div>
+      </div>
+    </>
   );
 };
 
 export const HE10_SurfaceAreaScene: React.FC = () => {
+  const { fps } = useVideoConfig();
+  const frame = useCurrentFrame();
+
+  // Center node
+  const centerEntry = spring({ frame, fps, config: springConf });
+
+  // Footer
+  const footerT = Math.max(0, frame - 220);
+  const footerEntry = spring({ frame: footerT, fps, config: springConf });
+
   return (
     <AbsoluteFill style={{ background: BG_GRADIENT }}>
-      <CenterLabel triggerFrame={0} />
-      {nodes.map((n, i) => <NodeItem key={i} label={n.label} angleDeg={n.angle} index={i} />)}
-      <FooterText triggerFrame={200} />
+      {/* Center node: Agent-Generated */}
+      <div style={{
+        position: "absolute",
+        left: CX - 100, top: CY - 26,
+        opacity: centerEntry, transform: `scale(${centerEntry})`,
+      }}>
+        <div style={{
+          backgroundColor: CYAN,
+          borderRadius: 12,
+          padding: "14px 28px",
+          boxShadow: "0 0 28px rgba(103,232,249,0.25)",
+        }}>
+          <span style={{
+            fontSize: 22, fontWeight: 800, fontFamily: "Arial, sans-serif",
+            color: "#0a0a12", letterSpacing: "-0.02em",
+          }}>
+            Agent-Generated
+          </span>
+        </div>
+      </div>
+
+      {/* Satellite nodes */}
+      {nodes.map((label, i) => (
+        <SatelliteNode key={i} label={label} index={i} total={nodes.length} />
+      ))}
+
+      {/* Footer */}
+      <div style={{
+        position: "absolute", bottom: 80, left: 0, right: 0, textAlign: "center",
+        padding: "0 160px",
+        opacity: footerEntry, transform: `translateY(${(1 - footerEntry) * 16}px)`,
+      }}>
+        <span style={{ fontSize: 28, fontFamily: "Arial, sans-serif", color: TEXT, letterSpacing: "-0.02em" }}>
+          The full surface area.{" "}
+          <span style={{ color: CYAN, fontWeight: 700 }}>
+            All of it needs to be legible, consistent, worth copying.
+          </span>
+        </span>
+      </div>
     </AbsoluteFill>
   );
 };
