@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill, interpolate } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const CODE_BG = "#111827";
 const TEXT = "#f0f0f0";
 const RED = "#ff6b6b";
@@ -98,7 +98,7 @@ export const HE06_DuplicationScene: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BG,
+        background: BG_GRADIENT,
         justifyContent: "center",
         alignItems: "center",
         gap: 20,

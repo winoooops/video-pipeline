@@ -25,22 +25,50 @@
 
 ## 2. Color Palette
 
+### Style: S22 暗夜優雅 (Dark Elegant)
+Based on StylePrompt S22 — refined dark theme with gradient depth, subtle glow accents, professional depth.
+
 ### Core Colors
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `BG` | `#0a0a0f` | Background — every scene, every frame |
-| `TEXT` | `#f0f0f0` | Primary text — headings, body, labels |
-| `DIM` | `rgba(240,240,240,0.5)` | Secondary text — subtitles, captions, metadata |
+| `BG_TOP` | `#0a0a12` | Background gradient top — deep dark with blue undertone |
+| `BG_BOT` | `#0d1117` | Background gradient bottom — slightly lighter, GitHub-dark feel |
+| `TEXT` | `#e8eaed` | Primary text — headings, body, labels (slightly warmer than pure white) |
+| `DIM` | `rgba(232,234,237,0.45)` | Secondary text — subtitles, captions, metadata |
 | `RED` | `#ff6b6b` | Accent — warnings, emphasis, "bad" states, call-to-action |
 | `GREEN` | `#4ade80` | Accent — success, "good" states, improvements, growth |
 | `CYAN` | `#67e8f9` | Accent — links, technical terms, code highlights |
 | `PURPLE` | `#a78bfa` | Accent — people/roles, special callouts |
+| `GLOW` | `rgba(103,232,249,0.08)` | Subtle glow behind elements — creates depth |
+| `NODE_BG` | `#141422` | Diagram node background — slightly lighter than BG |
+| `CODE_BG` | `#0d1117` | Code block background — GitHub dark |
+
+### Background Treatment
+**Never flat black.** Every scene uses a radial or linear gradient background:
+```tsx
+// Standard scene background
+background: "linear-gradient(180deg, #0a0a12 0%, #0d1117 100%)"
+
+// With subtle radial glow (for emphasis scenes 05, 11, 12):
+background: "radial-gradient(ellipse 60% 50% at 50% 40%, #12122a 0%, #0a0a12 50%, #0d1117 100%)"
+```
+
+### Glow Effects
+Elements get subtle glow via `boxShadow`:
+```tsx
+// Accent glow on nodes/badges
+boxShadow: "0 0 20px rgba(103,232,249,0.15), 0 0 40px rgba(103,232,249,0.05)"
+
+// Subtle depth shadow on code blocks
+boxShadow: "0 4px 24px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.05)"
+```
 
 ### Usage Rules
-1. **Background is always `#0a0a0f`.** No exceptions. No white backgrounds. No gradients.
-2. **Maximum 2 accent colors per scene.** Red + Green for contrast. Cyan for technical. Purple for people. Don't mix all four.
-3. **Text is always `#f0f0f0` or `DIM`.** Never use accent colors for body text. Accent colors are for labels, badges, and highlights only.
-4. **Opacity for hierarchy.** Use `rgba(240,240,240, 0.3–0.7)` for tertiary elements rather than introducing new colors.
+1. **Background is always a gradient** — `linear-gradient(180deg, #0a0a12, #0d1117)` minimum. Never flat `#000000` or `#0a0a0f`.
+2. **Maximum 2 accent colors per scene.** Red + Green for contrast. Cyan for technical. Purple for people.
+3. **Text is always `#e8eaed` or `DIM`.** Accent colors for labels/badges/highlights only.
+4. **Opacity for hierarchy.** Use `rgba(232,234,237, 0.3–0.6)` for tertiary elements.
+5. **Glow sparingly.** Only on key elements: diagram nodes, badges, callout boxes. Not on every text element.
 
 ### Color Semantics
 | Meaning | Color | Example |

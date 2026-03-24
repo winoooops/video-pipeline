@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const TEXT = "#f0f0f0";
 const RED = "#ff6b6b";
 const GREEN = "#4ade80";
@@ -71,7 +71,7 @@ const SplitPane: React.FC<{ side: "left" | "right"; triggerFrame: number }> = ({
 
 export const HE07_NotANoteScene: React.FC = () => {
   return (
-    <AbsoluteFill style={{ backgroundColor: BG, justifyContent: "center", alignItems: "center", gap: 40 }}>
+    <AbsoluteFill style={{ background: BG_GRADIENT, justifyContent: "center", alignItems: "center", gap: 40 }}>
       <div style={{ fontSize: 28, fontFamily: "Arial, sans-serif", color: TEXT, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10 }}>
         Not a note. A lint.
       </div>

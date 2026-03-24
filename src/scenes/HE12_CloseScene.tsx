@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill, interpolate } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const TEXT = "#f0f0f0";
 const RED = "#ff6b6b";
 const DIM = "rgba(240,240,240,0.5)";
@@ -43,7 +43,7 @@ export const HE12_CloseScene: React.FC = () => {
   const fadeBlack = interpolate(finalCardT, [0, 60], [0, 1], { extrapolateRight: "clamp" });
 
   return (
-    <AbsoluteFill style={{ backgroundColor: BG, justifyContent: "center", alignItems: "center", gap: 32 }}>
+    <AbsoluteFill style={{ background: BG_GRADIENT, justifyContent: "center", alignItems: "center", gap: 32 }}>
       <WordReveal words={["The", "bottleneck", "isn't", "the", "AI."]} startFrame={20} fontSize={52} />
       <WordReveal words={["It's", "the", "infrastructure", "around", "it."]} startFrame={110} fontSize={52} color={RED} />
       <div style={{ height: 20 }} />
@@ -67,7 +67,7 @@ export const HE12_CloseScene: React.FC = () => {
       </div>
 
       {/* Fade to black */}
-      <div style={{ position: "absolute", inset: 0, backgroundColor: BG, opacity: fadeBlack, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", inset: 0, background: BG_GRADIENT, opacity: fadeBlack, pointerEvents: "none" }} />
     </AbsoluteFill>
   );
 };

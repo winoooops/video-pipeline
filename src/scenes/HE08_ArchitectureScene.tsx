@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const TEXT = "#f0f0f0";
 const GREEN = "#4ade80";
 const RED = "#ff6b6b";
@@ -31,7 +31,7 @@ const Node: React.FC<{
         top: y,
         opacity: entry,
         transform: `scale(${entry})`,
-        backgroundColor: "#1a1a2e",
+        backgroundColor: "#141422",
         border: "2px solid rgba(255,255,255,0.2)",
         borderRadius: 12,
         padding: "16px 36px",
@@ -108,7 +108,7 @@ const RuleText: React.FC<{
 
 export const HE08_ArchitectureScene: React.FC = () => {
   return (
-    <AbsoluteFill style={{ backgroundColor: BG, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ background: BG_GRADIENT, justifyContent: "center", alignItems: "center" }}>
       {/* Diagram area */}
       <div style={{ position: "relative", width: 700, height: 200 }}>
         <Node label="Service" x={80} y={60} triggerFrame={30} />

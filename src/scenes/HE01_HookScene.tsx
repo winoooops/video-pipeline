@@ -10,11 +10,11 @@
 
 import React from "react";
 import { AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { FadeIn } from "../components/animations/FadeIn";
 import { CountUp } from "../components/animations/CountUp";
 import { ScaleIn } from "../components/animations/ScaleIn";
 
-const BG = "#0a0a0f";
 const RED = "#ff6b6b";
 const DIM = "rgba(240,240,240,0.5)";
 
@@ -39,7 +39,7 @@ export const HE01_HookScene: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BG,
+        background: BG_GRADIENT,
         justifyContent: "center",
         alignItems: "center",
         gap: 24,

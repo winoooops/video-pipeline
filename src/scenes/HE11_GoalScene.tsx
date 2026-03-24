@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const TEXT = "#f0f0f0";
 const DIM = "rgba(240,240,240,0.55)";
 const GREEN = "#4ade80";
@@ -48,7 +48,7 @@ const SmallLine: React.FC<{ text: string; triggerFrame: number; color?: string }
 
 export const HE11_GoalScene: React.FC = () => {
   return (
-    <AbsoluteFill style={{ backgroundColor: BG, justifyContent: "center", alignItems: "center", gap: 28 }}>
+    <AbsoluteFill style={{ background: BG_GRADIENT, justifyContent: "center", alignItems: "center", gap: 28 }}>
       <BigLine text="The goal: agents that work longer." triggerFrame={0} />
       <BigLine text="More reliably." triggerFrame={70} />
       <BigLine text="With less hand-holding." triggerFrame={140} />

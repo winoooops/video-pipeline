@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const TEXT = "#f0f0f0";
 const DIM = "rgba(240,240,240,0.5)";
 const GREEN = "#4ade80";
@@ -43,7 +43,7 @@ export const HE09_TasteScene: React.FC = () => {
   const calloutEntry = spring({ frame: calloutT, fps, config: springConf });
 
   return (
-    <AbsoluteFill style={{ backgroundColor: BG, justifyContent: "center", alignItems: "center", gap: 40 }}>
+    <AbsoluteFill style={{ background: BG_GRADIENT, justifyContent: "center", alignItems: "center", gap: 40 }}>
       {/* Two-column layout — BEFORE / AFTER */}
       <div style={{ display: "flex", gap: 60, alignItems: "flex-start", justifyContent: "center" }}>
         {/* BEFORE column */}

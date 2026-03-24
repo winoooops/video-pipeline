@@ -9,9 +9,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate, spring, AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const DIM = "rgba(240,240,240,0.4)";
 
 const lines = [
@@ -61,7 +61,7 @@ export const HE02_SymphonyScene: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: BG,
+        background: BG_GRADIENT,
         justifyContent: "center",
         alignItems: "center",  // centered per storyboard
         gap: 20,

@@ -4,9 +4,9 @@
 
 import React from "react";
 import { useCurrentFrame, useVideoConfig, spring, AbsoluteFill } from "remotion";
+import { BG_GRADIENT } from "../theme-he";
 import { springConf } from "../animations";
 
-const BG = "#0a0a0f";
 const TEXT = "#f0f0f0";
 const CYAN = "#67e8f9";
 
@@ -60,7 +60,7 @@ const CenterLabel: React.FC<{ triggerFrame: number }> = ({ triggerFrame }) => {
       opacity: entry, transform: `scale(${entry})`,
       backgroundColor: CYAN, borderRadius: 10, padding: "10px 22px",
     }}>
-      <span style={{ fontSize: 18, fontWeight: 800, fontFamily: "Arial, sans-serif", color: BG, letterSpacing: "-0.02em" }}>
+      <span style={{ fontSize: 18, fontWeight: 800, fontFamily: "Arial, sans-serif", color: "#0a0a12", letterSpacing: "-0.02em" }}>
         Agent-Generated
       </span>
     </div>
@@ -88,7 +88,7 @@ const FooterText: React.FC<{ triggerFrame: number }> = ({ triggerFrame }) => {
 
 export const HE10_SurfaceAreaScene: React.FC = () => {
   return (
-    <AbsoluteFill style={{ backgroundColor: BG }}>
+    <AbsoluteFill style={{ background: BG_GRADIENT }}>
       <CenterLabel triggerFrame={0} />
       {nodes.map((n, i) => <NodeItem key={i} label={n.label} angleDeg={n.angle} index={i} />)}
       <FooterText triggerFrame={200} />
