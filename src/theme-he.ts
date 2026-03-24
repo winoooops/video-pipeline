@@ -8,8 +8,9 @@
 import React from "react";
 
 // Background gradients
-export const BG_GRADIENT = "linear-gradient(180deg, #0a0a12 0%, #0d1117 100%)";
-export const BG_GLOW = "radial-gradient(ellipse 60% 50% at 50% 40%, #12122a 0%, #0a0a12 50%, #0d1117 100%)";
+// 3-stop diagonal gradient — visible at canvas edges per kanban spec
+export const BG_GRADIENT = "linear-gradient(135deg, #0a0a12 0%, #0d1117 50%, #0a0a12 100%)";
+export const BG_GLOW = "radial-gradient(ellipse 80% 60% at 50% 40%, #12122a 0%, #0a0a12 45%, #0d1117 100%)";
 
 // Core colors
 export const TEXT = "#e8eaed";
