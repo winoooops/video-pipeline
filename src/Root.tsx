@@ -2,11 +2,12 @@
  * Root.tsx — Harness Engineering Video
  * 
  * Uses TransitionSeries with fade crossfades between scenes.
+ * Audio wired per-scene via <Audio src={staticFile("audio/part_NN.mp3")} />.
  * Exported as RemotionRoot for index.ts entry point.
  */
 
 import React from "react";
-import { Composition } from "remotion";
+import { Composition, Audio, staticFile } from "remotion";
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 
@@ -38,27 +39,28 @@ const xfadeTiming = linearTiming({ durationInFrames: XFADE });
 const TOTAL = (S01+S02+S03+S04+S05+S06+S07+S08+S09+S10+S11+S12) - (11 * XFADE);
 
 const scenes = [
-  { dur: S01, Comp: HE01_HookScene },
-  { dur: S02, Comp: HE02_SymphonyScene },
-  { dur: S03, Comp: HE03_InstinctScene },
-  { dur: S04, Comp: HE04_CodexCantSeeScene },
-  { dur: S05, Comp: HE05_GapIsAlwaysYoursScene },
-  { dur: S06, Comp: HE06_DuplicationScene },
-  { dur: S07, Comp: HE07_NotANoteScene },
-  { dur: S08, Comp: HE08_ArchitectureScene },
-  { dur: S09, Comp: HE09_TasteScene },
-  { dur: S10, Comp: HE10_SurfaceAreaScene },
-  { dur: S11, Comp: HE11_GoalScene },
-  { dur: S12, Comp: HE12_CloseScene },
+  { dur: S01, Comp: HE01_HookScene, audio: "audio/part_01.mp3" },
+  { dur: S02, Comp: HE02_SymphonyScene, audio: "audio/part_02.mp3" },
+  { dur: S03, Comp: HE03_InstinctScene, audio: "audio/part_03.mp3" },
+  { dur: S04, Comp: HE04_CodexCantSeeScene, audio: "audio/part_04.mp3" },
+  { dur: S05, Comp: HE05_GapIsAlwaysYoursScene, audio: "audio/part_05.mp3" },
+  { dur: S06, Comp: HE06_DuplicationScene, audio: "audio/part_06.mp3" },
+  { dur: S07, Comp: HE07_NotANoteScene, audio: "audio/part_07.mp3" },
+  { dur: S08, Comp: HE08_ArchitectureScene, audio: "audio/part_08.mp3" },
+  { dur: S09, Comp: HE09_TasteScene, audio: "audio/part_09.mp3" },
+  { dur: S10, Comp: HE10_SurfaceAreaScene, audio: "audio/part_10.mp3" },
+  { dur: S11, Comp: HE11_GoalScene, audio: "audio/part_11.mp3" },
+  { dur: S12, Comp: HE12_CloseScene, audio: "audio/part_12.mp3" },
 ];
 
-// Inner composition component with crossfade transitions
+// Inner composition component with crossfade transitions + per-scene audio
 const HarnessVideo: React.FC = () => (
   <TransitionSeries>
-    {scenes.map(({ dur, Comp }, i) => (
+    {scenes.map(({ dur, Comp, audio }, i) => (
       <React.Fragment key={i}>
         <TransitionSeries.Sequence durationInFrames={dur}>
           <Comp />
+          <Audio src={staticFile(audio)} />
         </TransitionSeries.Sequence>
         {i < scenes.length - 1 && (
           <TransitionSeries.Transition
